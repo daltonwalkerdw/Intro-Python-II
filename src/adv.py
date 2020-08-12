@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -39,6 +40,7 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 
+
 # Write a loop that:
 #
 # * Prints the current room name
@@ -49,3 +51,32 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+
+
+
+   
+
+def start_game():
+    command = input(f"Enter name to start: ")
+    player = Player(command, room["outside"], 15)
+    message = f"{player.name}, You have entered the {player.location.name}.\n\nDescription: {player.location.description}\n\nWhich direction would you like to go?\n\nn = north, e = east, s = south and w = west\n"
+    
+    while True:
+        if command == 'q':
+            break
+        # elif command == "n" or "s" or "e" or "w" or "q":
+        command = input(message)
+        if command == "n" or player.location == room["outside"]:
+            player.location = room['outside'].n_to
+            print(player.location.name)
+            command = input(f"{player.name}, You have entered the {player.location.name}.\n\nDescription: {player.location.description}\n\nWhich direction would you like to go?\n\nn = north, e = east, s = south and w = west\n")
+            if command == "s":
+                player.location = room['foyer'].s_to
+                command = input(message)
+                
+        else:
+            print("invalid button")
+           
+
+start_game()
